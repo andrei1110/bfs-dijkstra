@@ -2,7 +2,7 @@
 
 #define maxV 21
 #define INF 999999
-#define START 0
+#define START 3
 #define END 20
 
 int matriz[maxV][maxV] = {
@@ -35,32 +35,31 @@ int tab[2][maxV] = {
 					};
 					
 void bfs(int g[maxV][maxV], int init){
-	int a;
-	if(visitados[init] != 2){//verifica a cor do vertice
-		visitados[init] = 1;
-		for (a = 0; a < maxV; a++){
-			//printf("achou um vertice entre %d %d\n",a,b);
-			if( g[init][a] > 0){//verifica se há uma aresta ligando os vertices
-				if(tab[0][a] == INF || tab[0][a] > tab[0][init] + 1){//verifica se a distancia é menor do que a existente
-					tab[1][a] = init;//salva v-ant
-					tab[0][a] = tab[0][init] + 1; //atualiza distancia
-					//printf("atualiza distancia e v pai de %d\n",a);
-					if(visitados[a] != 1){//verifica a cor do vertice
-						bfs(g, a);
-					}
-				}
-			}
+	int a, fila[maxV], ini, fim;
+	ini = fim = 0;
+	fila[++fim] = init;
+	while(ini <= fim){
+		init = fila[ini++];
+		//printf("%d ", init);
+		for (a = 0; a < maxV; a++){//percorre procurando um vertice vizinho
+		if( g[init][a] > 0 && tab[0][a] > tab[0][init] + 1 ){//verifica se ha uma aresta ligando os vertices
+			//verifica se a distancia e menor do que a existente
+			tab[1][a] = init;//salva v-ant
+			tab[0][a] = tab[0][init] + 1; //atualiza distancia
+			//printf("atualiza distancia e v pai de %d\n",a);
+			fila[++fim] = a;
 		}
-		visitados[init] = 2;
-	}
+		}
+	} 
 }
+
 void printBFS(){
 	int a;
-	printf(" Ditância:    ");
-	for(a = 0; a < maxV; a++) printf(" %d ",tab[0][a]);
-	printf("\n V anterior: ");
-	for(a = 0; a < maxV; a++) printf(" %d ",tab[1][a]);
-	printf("\n Distancia de %d até %d é de %d\n", START, END, tab[0][END]-tab[0][START]);
+	printf(" Ditancia:\t");
+	for(a = 0; a < maxV; a++) printf("%d\t",tab[0][a]);
+	printf("\n V anterior:\t");
+	for(a = 0; a < maxV; a++) printf("%d\t",tab[1][a]);
+	printf("\n Distancia de %d ate %d e de %d\n", START, END, tab[0][END]-tab[0][START]);
 	a = END;
 	while(a != START){
 		printf("%d ->",tab[1][a]);
