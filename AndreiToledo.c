@@ -7,6 +7,9 @@
 #define START 3
 #define END 20
 //definições para Dijkstra
+#define maxD 7
+#define startD 0
+#define endD 7
 
 int matriz[maxV][maxV] = {
 						{0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
