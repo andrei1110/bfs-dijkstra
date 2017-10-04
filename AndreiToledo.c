@@ -57,21 +57,21 @@ int matrizD[maxD][maxD] = {
 int disD[maxD];
 int antD[maxD];
 					
-void bfs(int init){
+void bfs(int i){
 	int a, fila[maxV], ini = 0, fim = 0;
 	memset (ant,-1,sizeof(ant));
 	memset (dist,0x7f,sizeof(dist));
-	dist[init] = 0;
-	fila[++fim] = init;
+	dist[i] = 0;
+	fila[fim++] = i;
 	while(ini <= fim){
-		init = fila[ini++];
-		//printf("%d ", init);
+		i = fila[ini++];
+		//printf("%d ", i);
 		for (a = 0; a < maxV; a++){//percorre procurando um vertice vizinho
-			if( matriz[init][a] > 0 && dist[a] > dist[init] + 1 ){//verifica se ha uma aresta ligando os vertices
+			if( matriz[i][a] > 0 && dist[a] > dist[i] + 1 ){//verifica se ha uma aresta ligando os vertices
 				//verifica se a distancia e menor do que a existente
 				//tab[1][a] = init;//salva v-ant
-				ant[a] = init;
-				dist[a] = dist[init] + 1; //atualiza distancia
+				ant[a] = i;
+				dist[a] = dist[i] + 1; //atualiza distancia
 				//printf("atualiza distancia e v pai de %d\n",a);
 				fila[++fim] = a;
 			}
@@ -89,8 +89,9 @@ void printBFS(){
 	for(a = 0; a < maxV; a++) printf("%d\t",ant[a]);
 	printf("\nDistância de %d ate %d é de %d\n", START, END, dist[END]-dist[START]);
 	a = END;
+	printf("%d ",a);
 	while(a != START){
-		printf("%d ->",ant[a]);
+		printf("-> %d ",ant[a]);
 		a = ant[a];
 	}
 }
@@ -130,10 +131,12 @@ void printD(){
 	
 	printf("\nDistância de %d ate %d é de %d\n", startD, endD, disD[endD]);
 	i = endD;
+	printf("%d ",i);
 	do{
-		printf("%d ->",antD[i]);
+		printf("-> %d ",antD[i]);
 		i = antD[i];
 	}while(i != startD);
+	printf("\n\n");
 }
 
 int main(void){
