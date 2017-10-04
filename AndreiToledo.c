@@ -35,6 +35,7 @@ int matriz[maxV][maxV] = {
 						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1},
 						{0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0}
 						};
+//int visitados[maxV] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 int tab[2][maxV] = {
 					{INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF}, //dist
@@ -64,6 +65,7 @@ void bfs(int init){
 				//verifica se a distancia e menor do que a existente
 				tab[1][a] = init;//salva v-ant
 				tab[0][a] = tab[0][init] + 1; //atualiza distancia
+				//printf("atualiza distancia e v pai de %d\n",a);
 				fila[++fim] = a;
 			}
 		}
@@ -76,10 +78,8 @@ void printBFS(){
 	printf("BFS\n");
 	printf("Ditancia:\t");
 	for(a = 0; a < maxV; a++) printf("%d\t",tab[0][a]);
-	
 	printf("\nV anterior:\t");
 	for(a = 0; a < maxV; a++) printf("%d\t",tab[1][a]);
-	
 	printf("\nDistância de %d ate %d é de %d\n", START, END, tab[0][END]-tab[0][START]);
 	a = END;
 	do{
