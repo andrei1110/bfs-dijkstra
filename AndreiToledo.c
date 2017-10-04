@@ -7,6 +7,7 @@
 #define maxV 21
 #define START 3
 #define END 20
+
 //definições para Dijkstra
 #define maxD 7
 #define startD 0
@@ -51,8 +52,8 @@ int matrizD[maxD][maxD] = {
 						{0,0,0,6,8,0,11},
 						{0,0,0,0,9,11,0},
 						};
-int dis[maxD];
-int ant[maxD];
+int disD[maxD];
+int antD[maxD];
 					
 void bfs(int init){
 	int a, fila[maxV], ini = 0, fim = 0;
@@ -82,30 +83,30 @@ void printBFS(){
 	for(a = 0; a < maxV; a++) printf("%d\t",tab[1][a]);
 	printf("\nDistância de %d ate %d é de %d\n", START, END, tab[0][END]-tab[0][START]);
 	a = END;
-	do{
+	while(a != START){
 		printf("%d ->",tab[1][a]);
 		a = tab[1][a];
-	}while(a != START);
+	}
 }
 
 void dijkstra(int ini){
 	char vis[maxD];
 	memset (vis, 0, sizeof (vis));
-	memset (dis, 0x7f, sizeof (dis));
-	dis[ini] = 0;
+	memset (disD, 0x7f, sizeof (disD));
+	disD[ini] = 0;
 	int a, i;
 	for (a = 0; a < maxD; a++){
 		int v = -1;
 		for (i = 0; i < maxD; i++){
-			if (!vis[i] && (v < 0 || dis[i] < dis[v])){
+			if (!vis[i] && (v < 0 || disD[i] < disD[v])){
 				v = i;
 			}
 		}
 		vis[v] = 1;
 		for (i = 0; i < maxD; i++){
-			if (matrizD[v][i] && dis[i] > dis[v] + matrizD[v][i]){//verifica se há aresta ligando os vértices e se a distância é menor
-				dis[i] = dis[v] + matrizD[v][i];//atualiza a distância
-				ant[i] = v;//define o vértice anterior
+			if (matrizD[v][i] && disD[i] > disD[v] + matrizD[v][i]){//verifica se há aresta ligando os vértices e se a distância é menor
+				disD[i] = disD[v] + matrizD[v][i];//atualiza a distância
+				antD[i] = v;//define o vértice anterior
 			}
 		}
 	}
@@ -116,16 +117,16 @@ void printD(){
 	printf("\n\nDijkstra\n");
 	
 	printf("Distância:\t");
-	for(i = 0; i < maxD; i++) printf("%d\t",dis[i]);
+	for(i = 0; i < maxD; i++) printf("%d\t",disD[i]);
 	
 	printf("\nV-anterior:\t");
-	for(i = 0; i < maxD; i++) printf("%d\t",ant[i]);
+	for(i = 0; i < maxD; i++) printf("%d\t",antD[i]);
 	
-	printf("\nDistância de %d ate %d é de %d\n", startD, endD, dis[endD]);
+	printf("\nDistância de %d ate %d é de %d\n", startD, endD, disD[endD]);
 	i = endD;
 	do{
-		printf("%d ->",ant[i]);
-		i = ant[i];
+		printf("%d ->",antD[i]);
+		i = antD[i];
 	}while(i != startD);
 }
 
