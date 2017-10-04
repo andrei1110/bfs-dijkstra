@@ -1,8 +1,6 @@
 #include  <stdio.h>
 #include <string.h>
 
-//#define INF 999999
-
 //definições para BFS
 #define maxV 21
 #define START 3
@@ -36,12 +34,6 @@ int matriz[maxV][maxV] = {
 						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1},
 						{0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0}
 						};
-//int visitados[maxV] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-
-//int tab[2][maxV] = {
-					//{INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF}, //dist
-					//{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1} //v-ant
-					//};
 int ant[maxV];
 int dist[maxV];
 
@@ -141,7 +133,6 @@ void printD(){
 
 int main(void){
 	
-	//tab[0][START] = 0;
 	bfs(START);
 	printBFS();
 	
