@@ -42,6 +42,8 @@ int tab[2][maxV] = {
 					{INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF}, //dist
 					{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1} //v-ant
 					};
+int ant[maxV];
+int dist[maxV];
 
 int matrizD[maxD][maxD] = {
 						{0,7,0,5,0,0,0},
@@ -57,15 +59,19 @@ int antD[maxD];
 					
 void bfs(int init){
 	int a, fila[maxV], ini = 0, fim = 0;
+	memset (ant,-1,sizeof(ant));
+	memset (dist,0x7f,sizeof(dist));
+	dist[init] = 0;
 	fila[++fim] = init;
 	while(ini <= fim){
 		init = fila[ini++];
 		//printf("%d ", init);
 		for (a = 0; a < maxV; a++){//percorre procurando um vertice vizinho
-			if( matriz[init][a] > 0 && tab[0][a] > tab[0][init] + 1 ){//verifica se ha uma aresta ligando os vertices
+			if( matriz[init][a] > 0 && dist[a] > dist[init] + 1 ){//verifica se ha uma aresta ligando os vertices
 				//verifica se a distancia e menor do que a existente
-				tab[1][a] = init;//salva v-ant
-				tab[0][a] = tab[0][init] + 1; //atualiza distancia
+				//tab[1][a] = init;//salva v-ant
+				ant[a] = init;
+				dist[a] = dist[init] + 1; //atualiza distancia
 				//printf("atualiza distancia e v pai de %d\n",a);
 				fila[++fim] = a;
 			}
@@ -78,21 +84,21 @@ void printBFS(){
 	
 	printf("BFS\n");
 	printf("Ditancia:\t");
-	for(a = 0; a < maxV; a++) printf("%d\t",tab[0][a]);
+	for(a = 0; a < maxV; a++) printf("%d\t",dist[a]);
 	printf("\nV anterior:\t");
-	for(a = 0; a < maxV; a++) printf("%d\t",tab[1][a]);
-	printf("\nDistância de %d ate %d é de %d\n", START, END, tab[0][END]-tab[0][START]);
+	for(a = 0; a < maxV; a++) printf("%d\t",ant[a]);
+	printf("\nDistância de %d ate %d é de %d\n", START, END, dist[END]-dist[START]);
 	a = END;
 	while(a != START){
-		printf("%d ->",tab[1][a]);
-		a = tab[1][a];
+		printf("%d ->",ant[a]);
+		a = ant[a];
 	}
 }
 
 void dijkstra(int ini){
 	char vis[maxD];
-	memset (vis, 0, sizeof (vis));
-	memset (disD, 0x7f, sizeof (disD));
+	memset (vis,0,sizeof(vis));
+	memset (disD,0x7f,sizeof(disD));
 	disD[ini] = 0;
 	int a, i;
 	for (a = 0; a < maxD; a++){
