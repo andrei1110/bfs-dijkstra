@@ -57,29 +57,26 @@ void bfs(int i){
 	fila[fim++] = i;
 	while(ini <= fim){
 		i = fila[ini++];
-		//printf("%d ", i);
 		for (a = 0; a < maxV; a++){//percorre procurando um vertice vizinho
 			if( matriz[i][a] > 0 && dist[a] > dist[i] + 1 ){//verifica se ha uma aresta ligando os vertices
 				//verifica se a distancia e menor do que a existente
-				//tab[1][a] = init;//salva v-ant
 				ant[a] = i;
 				dist[a] = dist[i] + 1; //atualiza distancia
-				//printf("atualiza distancia e v pai de %d\n",a);
 				fila[++fim] = a;
 			}
 		}
 	} 
 }
 
-void printBFS(){
+void printBFS(){//imprime a BFS
 	int a;
 	
 	printf("BFS\n");
 	printf("Ditancia:\t");
 	for(a = 0; a < maxV; a++) printf("%d\t",dist[a]);
-	printf("\nV anterior:\t");
+	printf("\nV-anterior:\t");
 	for(a = 0; a < maxV; a++) printf("%d\t",ant[a]);
-	printf("\nDistância de %d ate %d é de %d\n", START, END, dist[END]-dist[START]);
+	printf("\nDistância de %d até %d é de %d\n", START, END, dist[END]-dist[START]);
 	a = END;
 	printf("%d ",a);
 	while(a != START){
@@ -88,7 +85,7 @@ void printBFS(){
 	}
 }
 
-void dijkstra(int ini){
+void dijkstra(int ini){//Imprime Dijkstra
 	char vis[maxD];
 	memset (vis,0,sizeof(vis));
 	memset (disD,0x7f,sizeof(disD));
@@ -121,7 +118,7 @@ void printD(){
 	printf("\nV-anterior:\t");
 	for(i = 0; i < maxD; i++) printf("%d\t",antD[i]);
 	
-	printf("\nDistância de %d ate %d é de %d\n", startD, endD, disD[endD]);
+	printf("\nDistância de %d até %d é de %d\n", startD, endD, disD[endD]);
 	i = endD;
 	printf("%d ",i);
 	do{
